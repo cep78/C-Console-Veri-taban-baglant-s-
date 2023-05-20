@@ -10,8 +10,11 @@ using namespace std;
 
 int main()
 {
-	std::wstring deneme = L"INSERT INTO TABLO(AD) VALUES('sqlfonk')";
-	sqlveriyaz(deneme);
+	std::wstring deneme = L"INSERT INTO TABLO(AD) VALUES('sqlfk253')";
+
+	std::wstring yol = L"DRIVER={SQL Server};SERVER=.\\SQLEXPRESS;DATABASE=goruntu_isleme;Trusted=true";
+
+	sqlveriyaz(deneme,yol);
 	
 	printf("dasdasda");
 	getchar();

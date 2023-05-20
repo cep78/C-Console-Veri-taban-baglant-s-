@@ -7,7 +7,7 @@
 //use the std namespace
 using namespace std;
 
-int sqlveriyaz (wstring sorgu)
+int sqlveriyaz (wstring sorgu,wstring baglantiyol)
 {
 
 
@@ -22,6 +22,7 @@ int sqlveriyaz (wstring sorgu)
 
 	//wstring sorgu = L"INSERT INTO TABLO(AD) VALUES('yyyyy')";
 	SQLWCHAR *statement = (SQLWCHAR *)sorgu.c_str();
+	SQLWCHAR *baglanti = (SQLWCHAR *)baglantiyol.c_str();
 	//wchar_t* wc = new wchar_t[sorgu.size()];
 	//swprintf(wc, 100, L"%S", sorgu.c_str());
 
@@ -56,7 +57,8 @@ int sqlveriyaz (wstring sorgu)
 	//but is more secure to use a trusted connection
 	switch (SQLDriverConnect(sqlConnHandle,
 		NULL,
-		(SQLWCHAR*)L"DRIVER={SQL Server};SERVER=.\\SQLEXPRESS;DATABASE=goruntu_isleme;Trusted=true",
+		//(SQLWCHAR*)L"DRIVER={SQL Server};SERVER=.\\SQLEXPRESS;DATABASE=goruntu_isleme;Trusted=true"
+		baglanti,
 		//(SQLWCHAR*)L"DRIVER={SQL Server};Data Source=.;Initial Catalog=cteorman1703;User ID=userOrman;Password=1Wed%sZ2019*;Encrypt=False;TrustServerCertificate=True",
 		SQL_NTS,
 		retconstring,
