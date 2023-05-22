@@ -10,7 +10,6 @@ using namespace std;
 int sqlveriyaz (wstring sorgu,wstring baglantiyol)
 {
 
-
 #define SQL_RESULT_LEN 240
 #define SQL_RETURN_CODE_LEN 1000
 
@@ -19,6 +18,7 @@ int sqlveriyaz (wstring sorgu,wstring baglantiyol)
 	SQLHANDLE sqlStmtHandle;
 	SQLHANDLE sqlEnvHandle;
 	SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
+
 
 	//wstring sorgu = L"INSERT INTO TABLO(AD) VALUES('yyyyy')";
 	SQLWCHAR *statement = (SQLWCHAR *)sorgu.c_str();
@@ -141,5 +141,47 @@ COMPLETED:
 
 	return 0;
 
+}
+
+void  sqlverioku(wstring sorgu) {
+	
+#define SQL_RESULT_LEN 240
+#define SQL_RETURN_CODE_LEN 1000
+
+	//define handles and variables
+	SQLHANDLE sqlConnHandle;
+	SQLHANDLE sqlStmtHandle;
+	SQLHANDLE sqlEnvHandle;
+	SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
+	sqlConnHandle = NULL;
+	sqlStmtHandle = NULL;
+		SQLWCHAR *statement = (SQLWCHAR *)sorgu.c_str();
+		if (SQL_SUCCESS != SQLExecDirect(sqlStmtHandle, statement, SQL_NTS)) {
+			cout << "Error querying SQL Server";
+			cout << "\n";
+			goto COMPLETED;
+
+
+
+		}
+		else {
+
+			//declare output variable and pointer
+			SQLCHAR sqlVersion[SQL_RESULT_LEN];
+			SQLINTEGER ptrSqlVersion;
+
+			while (SQLFetch(sqlStmtHandle) == SQL_SUCCESS) {
+
+				SQLGetData(sqlStmtHandle, 1, SQL_CHAR, sqlVersion, SQL_RESULT_LEN, &ptrSqlVersion);
+
+				//display query result
+				cout << "\nQuery Result:\n\n";
+				cout << sqlVersion << endl;
+			}
+		}
+	COMPLETED:
+		int a;
+
+	
 }
 #pragma once
